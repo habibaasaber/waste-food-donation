@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'http://localhost:5000/api',
+    baseURL: 'https://waste-food-donation-production.up.railway.app/api',
 });
 
 // Intercept requests to add JWT token if exists

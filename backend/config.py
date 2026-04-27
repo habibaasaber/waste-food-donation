@@ -4,8 +4,10 @@ class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY', 'supersecretkey')
     
     # We will use sqlite locally if PostgreSQL URL is not provided
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL', 'sqlite:///app.db')
-    # Use fallback mechanism for Azure App Service where environment variables are common
+    db_url = os.environ.get('DATABASE_URL', 'sqlite:///app.db')
+    if db_url.startswith('postgres://'):
+        db_url = db_url.replace('postgres://', 'postgresql://', 1)
+    SQLALCHEMY_DATABASE_URI = db_url
     
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     JWT_SECRET_KEY = os.environ.get('JWT_SECRET_KEY', 'jwt-super-secret-key')
